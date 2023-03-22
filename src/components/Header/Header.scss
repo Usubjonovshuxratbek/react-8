@@ -1,0 +1,54 @@
+.header {
+    height: 100vh;
+    width: 8%;
+
+    .header__list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: end;  
+        background: #252836;
+        height: 100%;
+        padding-top: 24px;
+        padding-left: 12px;
+    }
+
+    .header__item {
+        padding: 13px 24px 13px 13px;
+        border-radius: 12px 0 0 12px;
+    }
+
+    .header__icon {
+        padding: 18px;
+        display: inline-block;
+        color: #EA7C69;
+        box-shadow: 0px 8px 24px rgba(234, 124, 105, 0.32);
+        border-radius: 8px;
+    }
+
+    .header__active {
+        background-color: #252836;
+        position: relative;
+        z-index: 10;
+        
+
+        .header__icon {
+            background-color: #EA7C69;
+            color: white;
+        }
+    }
+
+    .header__active::before {
+        content: '';
+        display: block;
+        width: 12px;
+        height: 12px;
+        object-fit: cover;
+        background-image: url('../../assets/img/burchak.png');
+        position: absolute;
+        z-index: 11;
+        top: -12px;
+        right: 0px;
+    }
+}
