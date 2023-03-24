@@ -1,11 +1,23 @@
-import React, { useContext} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../Context/Context'
 import './Order.scss'
-import { data } from '../../lib/data'
 
 function Order() {
-  const { order } = useContext(Context)
-
+  const { order, SetOrder } = useContext(Context)
+  const [id, setId] = useState(null)
+  const [data, setData] = useState([])
+  useEffect(() => {
+    setData([...new Set(order)])
+  }, [order])
+  useEffect(() => {
+    setData(data.filter((i) => i.id !== id))
+    SetOrder(data.filter((i) => i.id !== id))
+  }, [id])
+  console.log(id);
+  let a = 0
+  data.forEach((i) => {
+    a += (i.price * i.count).toFixed(2) * 1
+  })
 
   return (
     <div className='order'>
@@ -24,7 +36,7 @@ function Order() {
       </ul>
       <ul className='order-list'>
         {
-          order && [...new Set(order)].map((item, index) => (
+          data && data.map((item, index) => (
             <li className='order-block' key={index}>
               <div className="block-1">
                 <div className="product">
@@ -41,13 +53,13 @@ function Order() {
               </div>
               <div className="block-2">
                 <input type="text" />
-                <button><i className='bi bi-trash-fill'></i></button>
+                <button onClick={() => setId(item.id)}><i className='bi bi-trash-fill'></i></button>
               </div>
             </li>
           ))
         }
       </ul>
-      <button onClick={data.price}>click</button>
+      <button className='total-btn'>{a} $</button>
     </div>
   )
 }
